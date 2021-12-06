@@ -10,9 +10,9 @@
 
     <?php
 
-        require "content/components/header.component.php";
-        require "content/components/content.component.php";
-        require "content/components/footer.component.php";
+        require "content/main-components/header.component.php";
+        require "content/main-components/content.component.php";
+        require "content/main-components/footer.component.php";
 
     ?>
 
