@@ -1,22 +1,122 @@
-/* Hier kommt CSS/Styling-Content */
+/* Globale Einstellungen */
+html, body, span, h1, h2, h3, h4, h5, h6, p, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, footer, header {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+}
 
-/**
+html, body {
+    height: 100%;
+}
 
-    Aufbau:
+/* Header Einstellungen */
+.header {
+    display: inline-flex;
+}
 
-    .class {
-        attribut1: wert1;
-        attribut2: wert2;
-    }
+.home-button {
+    z-index: 1;
+    padding-left: 15px;
+}
 
-    #id {
-        attribut1: wert1;
-        attribut2: wert2;
-    }
+.home-button-link {
+    text-decoration: none;
+    color: white;
+}
 
-    html-element {
-        attribut1: wert1;
-        attribut2: wert2;
-    }
+.home-button-icon {
+    font-size: 35px;
+    line-height: 50px;
+    transition: 0.3s;
+}
 
- */
+.home-button-icon:hover {
+    font-size: 40px;
+}
+
+.navbar {
+    position: fixed;
+    text-align: center;
+    background: #284e91;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+}
+
+.nav-link {
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 15px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background: #3563b4;
+}
+
+
+/* Main Content Einstellungen */
+.main-content {
+    min-height: calc(100% - 75px);
+    padding-top: 25px;
+}
+
+.card-wrapper {
+    text-align: center;
+}
+
+.card-link {
+    color: #424242;
+    text-decoration: none;
+}
+
+.card {
+    box-shadow: 0 4px 8px 4px rgba(0,0,0,0.2);
+    transition: 0.3s;
+
+    padding: 20px 0 0;
+    margin: 0 25px;
+    display: inline-block;
+    width: 25%;
+    text-decoration: none;
+}
+
+.card h1, p {
+    line-height: 40px;
+    background: #284e91;
+    color: white;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 8px rgba(0,0,0,0.2);
+}
+
+.m-top-30 {
+    margin-top: 30px;
+}
+
+.m-top-150 {
+    margin-top: 150px;
+}
+
+/* Footer Einstellungen */
+.footer {
+    text-align: center;
+    background: #284e91;
+    color: white;
+    font-size: 12px;
+    height: 50px;
+    margin-top: -50px;
+}
+
+.footer span {
+    display: inline-block;
+    line-height: 50px;
+}

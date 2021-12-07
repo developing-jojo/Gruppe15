@@ -1,10 +1,8 @@
-<!-- Hier kommt HTML-Content -->
-
-<?php
-
-// PHP-Content
-echo "Global-Footer";
-
-?>
-
-<!-- Hier kommt HTML-Content -->
+<footer class="footer">
+    <span><?php echo date("Y"); ?> erstellt von
+        Darlyn Becker,
+        Alina Heinowski,
+        Anna-Mieke Kuper und
+        Frank Rommel
+    </span>
+</footer>

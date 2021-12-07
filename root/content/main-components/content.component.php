@@ -1,4 +1,4 @@
-<!-- Hier kommt HTML-Content -->
+<div class="main-content">
 <?php
 
     // Aktuelle URI
@@ -9,31 +9,31 @@
 
     // switch/case für alle Seiten zum Anzeigen des Contents:
     switch ($path) {
-    case '/umfrage-startseite':
+    case '/aktive-umfragen':
         require ($baseUrl.'/content/page-components/umfrage-startseite.page.php');
         break;
-    case 'umfrage-details':
+    case '/umfrage-details':
         require($baseUrl.'/content/page-components/umfrage-details.page.php');
         break;
-    case 'umfrage-ergebnisse':
+    case '/umfrage-ergebnisse':
         require($baseUrl.'/content/page-components/umfrage-ergebnisse.page.php');
         break;
-    case 'backend/umfrage-formular':
+    case '/backend/umfrage-formular':
         require($baseUrl.'/content/page-components/backend/umfrage-formular.page.php');
         break;
-    case 'backend/antwort-formular':
+    case '/backend/antwort-formular':
         require($baseUrl.'/content/page-components/backend/antwort-formular.page.php');
         break;
-    case 'backend/kategorie-formular':
+    case '/backend/kategorie-formular':
         require($baseUrl.'/content/page-components/backend/kategorie-formular.page.php');
         break;
-    case 'backend/umfrage-uebersicht':
+    case '/backend/auswertungen':
         require($baseUrl.'/content/page-components/backend/umfrage-uebersicht.page.php');
         break;
-    case 'backend/umfrage-details':
+    case '/backend/umfrage-details':
         require($baseUrl.'/content/page-components/backend/umfrage-details.page.php');
         break;
-    case 'backend/uebersicht':
+    case '/backend/uebersicht':
         require($baseUrl.'/content/page-components/backend/uebersicht.page.php');
         break;
     // Der default wird geladen, wenn keine der oben stehenden Optionen zutrifft
@@ -42,4 +42,4 @@
     }
 
 ?>
-<!-- Hier kommt HTML-Content -->
+</div>
