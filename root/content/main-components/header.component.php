@@ -13,7 +13,3 @@
         </div>
     </header>
 </div>
-
-<?php
-// PHP-Content
-?>
