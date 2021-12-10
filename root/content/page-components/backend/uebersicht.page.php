@@ -1,6 +1,6 @@
 <div class="card-wrapper">
     <div class="m-top-30">
-        <a class="card-link" href="/backend/umfrage-formular">
+        <a class="card-link" href="/backend/umfrage-formular.page.php">
             <div class="card">
                 <img width="40%" src="../../img/umfrage.png">
                 <h1>Umfrage Formular</h1>
@@ -8,7 +8,7 @@
             </div>
         </a>
 
-        <a class="card-link" href="/backend/antwort-formular">
+        <a class="card-link" href="/backend/antwort-formular.page.php">
             <div class="card">
                 <img width="40%" src="../../img/antwort.png">
                 <h1>Antwort Formular</h1>
@@ -18,7 +18,7 @@
     </div>
 
     <div class="m-top-30">
-        <a class="card-link" href="/backend/kategorie-formular">
+        <a class="card-link" href="/backend/kategorie-formular.page.php">
             <div class="card">
                 <img width="40%" src="../../img/kategorie.png">
                 <h1>Kategorie Formular</h1>
@@ -26,7 +26,7 @@
             </div>
         </a>
 
-        <a class="card-link" href="/backend/auswertungen">
+        <a class="card-link" href="/backend/umfrage-uebersicht.page.php">
             <div class="card">
                 <img width="40%" src="../../img/uebersicht.png">
                 <h1>Auswertungen</h1>

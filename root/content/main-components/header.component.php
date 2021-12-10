@@ -5,11 +5,11 @@
         </div>
 
         <div class="navbar">
-            <a class="nav-link" href="/aktive-umfragen">Aktive Umfragen</a>
-            <a class="nav-link" href="/backend/umfrage-formular">Umfrage-Formular</a>
-            <a class="nav-link" href="/backend/antwort-formular">Antwort-Formular</a>
-            <a class="nav-link" href="/backend/kategorie-formular">Kategorie-Formular</a>
-            <a class="nav-link" href="/backend/auswertungen">Auswertungen</a>
+            <a class="nav-link" href="/umfrage-startseite.page.php">Aktive Umfragen</a>
+            <a class="nav-link" href="/backend/umfrage-formular.page.php">Umfrage-Formular</a>
+            <a class="nav-link" href="/backend/antwort-formular.page.php">Antwort-Formular</a>
+            <a class="nav-link" href="/backend/kategorie-formular.page.php">Kategorie-Formular</a>
+            <a class="nav-link" href="/backend/umfrage-uebersicht.page.php">Auswertungen</a>
         </div>
     </header>
 </div>
