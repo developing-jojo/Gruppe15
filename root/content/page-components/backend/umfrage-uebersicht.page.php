@@ -35,13 +35,16 @@
 
             // Die Funktion enthält den MySql Query-Aufruf zum Selektieren, Filtern und Gruppieren der benötigten Daten
             function getMySqlData($con, $condition) {
-                return mysqli_query($con, "SELECT umfragen.name AS 'name', SUM(antworten.stimmen) AS 'stimmen'
+                $sqlStatement = "SELECT umfragen.name AS 'name', SUM(antworten.stimmen) AS 'stimmen'
                                     FROM `umfragen`
                                     LEFT JOIN `antworten`
                                     ON umfragen.u_id = antworten.umfrage_id
                                     WHERE CURRENT_DATE 
                                     $condition
-                                    GROUP BY name;");
+                                    GROUP BY name;";
+
+                // Gibt die erhaltenen Daten der MySql-Query zurück
+                return mysqli_query($con, $sqlStatement);
             }
 
             // Die Funktion durchläuft einen Datensatz und baut daraus die entsprechenden Tabellen-Reihen
@@ -63,6 +66,7 @@
                 }
             }
 
+            // Schließt die offene Datenbankverbindung wieder
             mysqli_close($con);
         ?>
     </table>

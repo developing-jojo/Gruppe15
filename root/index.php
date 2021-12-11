@@ -8,17 +8,24 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-        <!-- Mit PHP wird überprüft, ob die aktuelle Seite aus dem Backend kommt um die Css korrekt zu laden -->
-        <link rel="stylesheet"
-              href="<?php
-                        $uri = $_SERVER['REQUEST_URI'];
+        <!-- Mit PHP wird überprüft, ob die aktuelle Seite aus dem Backend kommt, um die CSS korrekt zu laden -->
+        <?php
+            // Basis URL zum Root Verzeichnis
+            $baseUrl = $_SERVER['HTTP_HOST'];
+            // Verwendetes Server-Protokoll
+            $protocol = $_SERVER['SERVER_PROTOCOL'];
 
-                        if (substr($uri, 0, 8) === '/backend') {
-                            echo '../css/main.css';
-                        } else {
-                            echo 'css/main.css';
-                        }
-                    ?>">
+            // Überprüft welches Protokoll verwendet wird und füllt die Variable für die Verlinkung entsprechend
+            if(strpos($protocol, 'HTTPS') !== false) {
+                $protocol = 'https://';
+            } else {
+                $protocol = 'http://';
+            }
+        ?>
+
+        <link rel="stylesheet" href="<?php echo $protocol . $baseUrl . '/css/main.css'; ?>">
+        <script src="<?php echo $protocol . $baseUrl . '/js/main.js'; ?>"></script>
+        <script src="<?php echo $protocol . $baseUrl . '/js/validation.js'; ?>"></script>
     </head>
     <body>
 

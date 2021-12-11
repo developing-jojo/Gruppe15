@@ -37,6 +37,7 @@
                 echo "<h3>Keine aktiven Umfragen vorhanden.</h3>";
             }
 
+            // Schließt die offene Datenbankverbindung wieder
             mysqli_close($con);
         ?>
     </table>
