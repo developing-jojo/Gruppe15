@@ -1,1 +1,86 @@
 <?php
+// Basis URL zum Root Verzeichnis
+$baseUrl = $_SERVER['DOCUMENT_ROOT'];
+
+// Lädt eine separate Datei, um eine Verbindung mit der DB herzustellen
+require $baseUrl . '/content/dbconnect.php';
+
+//Sql-Statements um die Kategorien und Umfragen zu laden
+$aSql = "SELECT * FROM antworten";
+$uSql = "SELECT * FROM umfragen";
+$antwortenRes = mysqli_query($con, $aSql);
+$umfragenRes = mysqli_query($con, $uSql);
+
+?>
+
+<div class="form-wrapper">
+    <form class="formular" action="/backend/antwort-post.php" method="post">
+        <fieldset class="form-fieldset">
+            <legend>Antwort erstellen</legend>
+            <label class="form-fields" for="inhalt">Inhalt</label>
+            <input class="form-fields" type="text" name="inhalt" id="inhalt">
+
+            <label class="form-fields" for="umfrage">Umfrage</label>
+            <select class="form-fields" name='uid' id="umfrage">
+                <?php
+                while($umfrage = mysqli_fetch_array($umfragenRes)) {
+                    echo "<option value='{$umfrage['u_id']}'>{$umfrage['name']}</option>";
+                }
+                ?>
+            </select>
+            <div class='form-fields'>
+                <input class='form-button' type='submit' name='create' value="Erstellen">
+            </div>
+        </fieldset>
+    </form>
+
+    <form class="formular" action="/backend/antwort-post.php" method="post">
+        <fieldset class="form-fieldset">
+            <legend>Antwort bearbeiten</legend>
+            <label class="form-fields" for="antwort">Antwort wählen</label>
+            <select class="form-fields" name='aid' id="antwort">
+                <?php
+                while($antwort = mysqli_fetch_array($antwortenRes)) {
+                    echo "<option value='{$antwort['a_id']}'>{$antwort['inhalt']}</option>";
+                }
+                ?>
+            </select>
+
+            <label class="form-fields" for="inhalt">Inhalt anpassen</label>
+            <input class="form-fields" type="text" name="inhalt" id="inhalt">
+
+            <label class="form-fields" for="umfrage">Umfrage wählen</label>
+            <select class="form-fields" name='uid' id="umfrage">
+                <?php
+                $umfragenRes -> data_seek(0);
+
+                while($umfrage = mysqli_fetch_array($umfragenRes)) {
+                    echo "<option value='{$umfrage['u_id']}'>{$umfrage['name']}</option>";
+                }
+                ?>
+            </select>
+            <div class="form-fields" >
+                <input class='form-button' type='submit' name='edit' value="Bearbeiten">
+            </div>
+        </fieldset>
+    </form>
+
+    <form class="formular" action="/backend/antwort-post.php" method="post">
+        <fieldset class="form-fieldset">
+            <legend>Antwort löschen</legend>
+            <label class="form-fields" for="antwort">Antwort wählen</label>
+            <select class="form-fields" name='aid' id="antwort">
+                <?php
+                $antwortenRes -> data_seek(0);
+
+                while($antwort = mysqli_fetch_array($antwortenRes)) {
+                    echo "<option value='{$antwort['a_id']}'>{$antwort['inhalt']}</option>";
+                }
+                ?>
+            </select>
+            <div class="form-fields" >
+                <input class='form-button' type='submit' name='delete' value="Löschen">
+            </div>
+        </fieldset>
+    </form>
+</div>

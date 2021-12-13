@@ -1,1 +1,3 @@
-// Hier kommen alle Funktionen zur Validierung der Formular-Felder rein.
+document.addEventListener('DOMContentLoaded', function(event) {
+
+})

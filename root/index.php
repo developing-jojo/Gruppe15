@@ -24,7 +24,6 @@
         ?>
 
         <link rel="stylesheet" href="<?php echo $protocol . $baseUrl . '/css/main.css'; ?>">
-        <script src="<?php echo $protocol . $baseUrl . '/js/main.js'; ?>"></script>
         <script src="<?php echo $protocol . $baseUrl . '/js/validation.js'; ?>"></script>
     </head>
     <body>

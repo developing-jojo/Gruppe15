@@ -20,13 +20,13 @@
             echo "Antwort erfolgreich gesendet.";
             echo "</h3>";
             echo "<div class='loader'></div>";
-            header( "refresh:2;url=/umfrage-ergebnisse.page.php?uid=".$uid );
+            header( "refresh:1.5;url=/umfrage-ergebnisse.page.php?uid=".$uid );
         } else {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Es ist ein Fehler aufgetreten, bitte versuche es nochmal! ";
             echo "</h3>";
             echo "<div class='loader'></div>";
-            header( "refresh:2;url=/umfrage-details.page.php?uid=".$uid );
+            header( "refresh:1.5;url=/umfrage-details.page.php?uid=".$uid );
         }
 
         // Schließt die offene Datenbankverbindung wieder
