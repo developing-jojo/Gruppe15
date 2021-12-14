@@ -63,7 +63,7 @@ html, body {
 /* Main Content Einstellungen */
 .main-content {
     min-height: calc(100vh - 125px);
-    padding-top: 25px;
+    padding-top: 75px;
 }
 
 .card-wrapper {

@@ -10,59 +10,90 @@
 
             // Ruft Funktion auf mit MySql Query um alle aktiven Umfragen und die abgegebenen Stimmen zu laden
             // Die Funktion nimmt die MySql-Verbindung und eine Bedingung zum Filtern der Daten entgegen
-            $active = getMySqlData($con, "BETWEEN umfragen.startdatum 
-                                          AND DATE_ADD(umfragen.enddatum, INTERVAL 1 DAY)");
-            // Ruft Funktion auf mit MySql Query um alle aktiven Umfragen und die abgegebenen Stimmen zu laden
-            $inactive = getMySqlData($con, "NOT BETWEEN umfragen.startdatum 
-                                            AND DATE_ADD(umfragen.enddatum, INTERVAL 1 DAY)");
+            $umfragenRes = mysqli_query($con, "SELECT umfragen.*, SUM(antworten.stimmen) AS 'stimmen'
+                                                FROM `umfragen`
+                                                LEFT JOIN `antworten`
+                                                ON umfragen.u_id = antworten.umfrage_id
+                                                GROUP BY umfragen.u_id
+                                                ORDER BY stimmen DESC ");
+
 
             // Zählt die Anzahl aller Datensätze der Tabelle mithilfe der Reihen-Nummer
-            $num = mysqli_num_rows($active) + mysqli_num_rows($inactive);
+            $num = mysqli_num_rows($umfragenRes);
 
             // Überprüft, ob die Datensätze größer 0 sind und gibt andernfalls eine entsprechende Meldung aus
             if ($num > 0) {
-                    echo "<th>Umfragename</th>";
-                    echo "<th>Abgegebene Stimmen</th>";
+                echo "<th>Umfragename</th>";
+                echo "<th>Abgegebene Stimmen</th>";
 
-                    // Funktion mit einer While-Schleife, die die Datensätze durchläuft und die angegebenen Daten ausgibt
-                    // Die Funktion nimmt Datensätze und eine CSS-Classe als String entgegen
-                    getTableData($active, "active");
-                    getTableData($inactive, "inactive");
+                $umfragenRes -> data_seek(0);
+                $highestRow = mysqli_fetch_row($umfragenRes)[0];
 
-                } else {
-                    echo "<h3>Keine aktiven Umfragen vorhanden.</h3>";
+                $umfragenRes -> data_seek(0);
+                $value = mysqli_fetch_row($umfragenRes)[6];
+
+                $lowestRow = 0;
+
+                $umfragenRes -> data_seek(0);
+                while($dsatz = mysqli_fetch_assoc($umfragenRes)) {
+                    $stimmen = $dsatz["stimmen"];
+                    $uid = $dsatz["u_id"];
+
+                    if($value >= $stimmen && $stimmen > 0) {
+                        $lowestRow = $uid;
+                        $value = $stimmen;
+                    }
                 }
 
-            // Die Funktion enthält den MySql Query-Aufruf zum Selektieren, Filtern und Gruppieren der benötigten Daten
-            function getMySqlData($con, $condition) {
-                $sqlStatement = "SELECT umfragen.name AS 'name', SUM(antworten.stimmen) AS 'stimmen'
-                                    FROM `umfragen`
-                                    LEFT JOIN `antworten`
-                                    ON umfragen.u_id = antworten.umfrage_id
-                                    WHERE CURRENT_DATE 
-                                    $condition
-                                    GROUP BY name;";
+                // Setzt den Zähler für den Datensatz auf Zeile 0 zurück
+                $umfragenRes -> data_seek(0);
 
-                // Gibt die erhaltenen Daten der MySql-Query zurück
-                return mysqli_query($con, $sqlStatement);
-            }
-
-            // Die Funktion durchläuft einen Datensatz und baut daraus die entsprechenden Tabellen-Reihen
-            // Das Class-Attribut ist ein String, der als Klassen-Name dem Umfrage-Namen angehängt wird
-            function getTableData($data, $class) {
-                while ($dsatz = mysqli_fetch_assoc($data))
+                // Die Schleife durchläuft einen Datensatz und baut daraus die entsprechenden Tabellen-Reihen
+                // Das Class-Attribut ist ein String, der als Klassen-Name dem Umfrage-Namen angehängt wird
+                while ($dsatz = mysqli_fetch_assoc($umfragenRes))
                 {
                     echo "<tr>";
-                    echo "<td class='$class'>" . $dsatz["name"] . "</td>";
+
+                    getActiveInactive($dsatz);
 
                     // Überprüft ob für die Umfrage Antworten existieren, also die Gesamtanzahl an abgegebenen Stimmen angezeigt werden kann
                     if (isset($dsatz["stimmen"])) {
-                        echo "<td>" . $dsatz["stimmen"] . "</td>";
+
+                        if($dsatz["u_id"] === $highestRow) {
+                            echo "<td>" . $dsatz["stimmen"] . " (höchster Wert)</td>";
+                        } elseif($dsatz["u_id"] === $lowestRow) {
+                            echo "<td>" . $dsatz["stimmen"] . " (niedrigster Wert)</td>";
+                        } else {
+                            echo "<td>" . $dsatz["stimmen"] . "</td>";
+                        }
                     } else {
-                        echo "<td>keine Antworten gesetzt</td>";
+                        echo "<td value='0'>keine Antworten gesetzt</td>";
                     }
 
                     echo "</tr>";
+                }
+
+
+            } else {
+                echo "<h3>Keine aktiven Umfragen vorhanden.</h3>";
+            }
+
+
+            function getActiveInactive($dsatz) {
+                $currentDate = date('Ymd', time());
+                $start = $dsatz["startdatum"];
+                $end = $dsatz["enddatum"];
+
+                $start = date_create_from_format("Y-m-d", $start);
+                $end = date_create_from_format("Y-m-d", $end);
+
+                $start = date_format($start, "Ymd");
+                $end = date_format($end, "Ymd");
+
+                if ($currentDate >= $start && $currentDate <= $end ) {
+                    echo "<td class='active'>" . $dsatz["name"] . "</td>";
+                } else {
+                    echo "<td class='inactive'>" . $dsatz["name"] . "</td>";
                 }
             }
 
