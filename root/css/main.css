@@ -11,6 +11,10 @@ html, body {
     height: 100%;
 }
 
+tfoot {
+    border-top: 1px dashed #000;
+}
+
 /* Header Einstellungen */
 .header {
     display: inline-flex;
@@ -86,7 +90,7 @@ html, body {
     text-decoration: none;
 }
 
-.card h1, p {
+.card-text {
     line-height: 40px;
     background: #284e91;
     color: white;
@@ -132,10 +136,12 @@ html, body {
 }
 
 .active {
+    text-decoration: underline;
     color: darkgreen;
 }
 
 .inactive {
+    text-decoration: underline;
     color: darkred;
 }
 
@@ -181,6 +187,11 @@ html, body {
     margin-right: 10px;
     width: 70%;
     line-height: 20px;
+    color: #999999;
+}
+
+.form-fields-inp {
+    color: #000000;
 }
 
 .antworten {
@@ -220,9 +231,27 @@ html, body {
     background-color: #3563b4
 }
 
+.date-picker {
+    display: grid;
+}
+
 .gesendet-nachricht {
     text-align: center;
     margin-top: 50px;
+}
+
+.antworten-uebersicht {
+    display: grid;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.antworten-uebersicht-table {
+    width: 100%;
+}
+
+.antworten-uebersicht-table tr:nth-child(2) {
+    color: darkgreen;
 }
 
 /* Footer Einstellungen */

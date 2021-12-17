@@ -8,8 +8,8 @@
             // Lädt eine separate Datei um eine Verbindung mit der DB herzustellen
             require $baseUrl.'/content/dbconnect.php';
 
-            // Ruft Funktion auf mit MySql Query um alle aktiven Umfragen und die abgegebenen Stimmen zu laden
-            // Die Funktion nimmt die MySql-Verbindung und eine Bedingung zum Filtern der Daten entgegen
+            // MySql-Query fragt alle existierenden Umfragen + ihre Gesamtanzahl abgegebener Stimmen der Antworten ab
+                // und sortiert nach Stimmen (weniger werdend)
             $umfragenRes = mysqli_query($con, "SELECT umfragen.*, SUM(antworten.stimmen) AS 'stimmen'
                                                 FROM `umfragen`
                                                 LEFT JOIN `antworten`
@@ -26,15 +26,22 @@
                 echo "<th>Umfragename</th>";
                 echo "<th>Abgegebene Stimmen</th>";
 
+                // Setzt den Zähler für den Datensatz auf Zeile 0 zurück
                 $umfragenRes -> data_seek(0);
+                // Speichert die Umfrage-Id der ersten Reihe (dank Sortierung die Reihe mit den meisten Antworten)
                 $highestRow = mysqli_fetch_row($umfragenRes)[0];
 
                 $umfragenRes -> data_seek(0);
+                // Holt sich die Gesamtanzahl der Stimmen der ersten Reihe um damit den Vergleich für die Reihe mit den
+                    // wenigsten abgegebenen Stimmen zu starten
                 $value = mysqli_fetch_row($umfragenRes)[6];
 
                 $lowestRow = 0;
 
                 $umfragenRes -> data_seek(0);
+                // Solange Datensätze im Array gefunden werden, überprüft die Schleife ob der aktuelle Wert an
+                    // abgegebenen Stimmen größer 0 und größer gleich letzter Wert sind um so die wenigsten Stimmen zu
+                    // ermitteln - Die Umfrage-Id der ermittelten Reihe wird gespeichert
                 while($dsatz = mysqli_fetch_assoc($umfragenRes)) {
                     $stimmen = $dsatz["stimmen"];
                     $uid = $dsatz["u_id"];
@@ -45,20 +52,22 @@
                     }
                 }
 
-                // Setzt den Zähler für den Datensatz auf Zeile 0 zurück
                 $umfragenRes -> data_seek(0);
 
-                // Die Schleife durchläuft einen Datensatz und baut daraus die entsprechenden Tabellen-Reihen
+                // Die Schleife durchläuft das MySql-Query-Ergebnis und baut daraus die entsprechenden Tabellen-Reihen
                 // Das Class-Attribut ist ein String, der als Klassen-Name dem Umfrage-Namen angehängt wird
                 while ($dsatz = mysqli_fetch_assoc($umfragenRes))
                 {
                     echo "<tr>";
 
+                    // Lädt die aktiven und inaktiven Umfrage(-name)n
                     getActiveInactive($dsatz);
 
-                    // Überprüft ob für die Umfrage Antworten existieren, also die Gesamtanzahl an abgegebenen Stimmen angezeigt werden kann
+                    // Überprüft ob für die Umfrage Antworten existieren, also die Gesamtanzahl an abgegebenen Stimmen
+                        // angezeigt werden kann
                     if (isset($dsatz["stimmen"])) {
 
+                        // Überprüft, ob die ausgewählte Reihe dem höchsten oder niedrigsten Stimmen-Wert entspricht
                         if($dsatz["u_id"] === $highestRow) {
                             echo "<td>" . $dsatz["stimmen"] . " (höchster Wert)</td>";
                         } elseif($dsatz["u_id"] === $lowestRow) {
@@ -79,6 +88,8 @@
             }
 
 
+            // Überprüft mittels Start- und Enddatum, ob die betroffene Umfrage aktiv oder inaktiv ist und gibt dann
+                // jeweils den TD-Block mit der entsprechenden CSS-Klasse zurück
             function getActiveInactive($dsatz) {
                 $currentDate = date('Ymd', time());
                 $start = $dsatz["startdatum"];
@@ -91,9 +102,11 @@
                 $end = date_format($end, "Ymd");
 
                 if ($currentDate >= $start && $currentDate <= $end ) {
-                    echo "<td class='active'>" . $dsatz["name"] . "</td>";
+                    echo "<td><a class='active' href='/backend/umfrage-details.page.php?uid={$dsatz["u_id"]}'>"
+                        . $dsatz["name"] . "</a></td>";
                 } else {
-                    echo "<td class='inactive'>" . $dsatz["name"] . "</td>";
+                    echo "<td><a class='inactive' href='/backend/umfrage-details.page.php?uid={$dsatz["u_id"]}'>"
+                        . $dsatz["name"] . "</a></td>";
                 }
             }
 

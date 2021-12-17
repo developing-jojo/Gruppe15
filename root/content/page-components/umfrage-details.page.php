@@ -22,8 +22,8 @@
 
                     // Ausgabe der Daten aus der geladenen Umfrage
                     $umfrage = mysqli_fetch_assoc($uRes);
-                    echo "<h2>" . $umfrage['name'] . "</h2>";
-                    echo "<h4>" . $umfrage['beschreibung'] . "</h4>";
+                    echo "<h2 class='card-text'>" . $umfrage['name'] . "</h2>";
+                    echo "<h4 class='card-text'>" . $umfrage['beschreibung'] . "</h4>";
 
                     $num = mysqli_num_rows($aRes);
 

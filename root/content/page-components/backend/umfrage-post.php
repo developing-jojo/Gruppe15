@@ -12,13 +12,8 @@
         $name = $_POST["name"];
         $beschreibung = $_POST["beschreibung"];
         $kid = $_POST["kid"];
-
-        // Der SQL-Code zum Erstellen einer Kategorie in der DB
-        $start = date_create_from_format("Ymd", date('Ymd') + 1);
-        $start = date_format($start,"Y-m-d");
-
-        $end = date_create_from_format("Ymd", date('Ymd') + 31);
-        $end = date_format($end,"Y-m-d");
+        $start = $_POST["start"];
+        $end = $_POST["end"];
 
         $sql = "INSERT INTO umfragen (name, beschreibung, kategorie_id, startdatum, enddatum) 
                 VALUE ('$name', '$beschreibung', '$kid', '$start', '$end')";
@@ -49,11 +44,14 @@
         // Holt sich die übermittelten Attribute aus dem POST-Request
         $name = $_POST["name"];
         $beschreibung = $_POST["beschreibung"];
+        $start = $_POST["start"];
+        $end = $_POST["end"];
         $uid = $_POST["uid"];
         $kid = $_POST["kid"];
 
         // Der SQL-Code zum Bearbeiten einer Kategorie in der DB
-        $sql = "UPDATE umfragen SET name = '$name', beschreibung = '$beschreibung', kategorie_id = '$kid' WHERE u_id = {$uid};";
+        $sql = "UPDATE umfragen SET name = '$name', beschreibung = '$beschreibung', kategorie_id = '$kid', 
+                    startdatum = '$start', enddatum = '$end' WHERE u_id = {$uid};";
 
         // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
         // Sonst Misserfolg und Weiterleitung zurück auf Übersicht

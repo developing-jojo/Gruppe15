@@ -38,16 +38,22 @@ if (isset($_POST["create"])) {
 if (isset($_POST["edit"])) {
 
     // Holt sich die übermittelten Attribute aus dem POST-Request
-    $inhalt = $_POST["inhalt"];
     $uid = $_POST["uid"];
-    $aid = $_POST["aid"];
 
-    // Der SQL-Code zum Bearbeiten einer Kategorie in der DB
-    $sql = "UPDATE antworten SET umfrage_id = '$uid', inhalt = '$inhalt' WHERE a_id = {$aid};";
+    $isSuccessful = true;
+    foreach ($_POST as $param_name => $param_val) {
+        if ($param_name !== "uid" && $param_name !== "edit") {
+            $sql = "UPDATE antworten SET umfrage_id = '$uid', inhalt = '$param_val' WHERE a_id = {$param_name};";
 
-    // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-    // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
-    if (mysqli_query($con, $sql)) {
+            // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
+            // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+            if (!mysqli_query($con, $sql)) {
+                $isSuccessful = false;
+            }
+        }
+    }
+
+    if ($isSuccessful) {
         echo "<h3 class='gesendet-nachricht'>";
         echo "Antwort erfolgreich bearbeitet.";
         echo "</h3>";

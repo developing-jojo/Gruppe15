@@ -16,7 +16,7 @@
         <fieldset class="form-fieldset">
             <legend>Kategorie erstellen</legend>
             <label class="form-fields" for="bezeichnung">Bezeichnung</label>
-            <input class="form-fields" type="text" name="bezeichnung" id="bezeichnung">
+            <input class="form-fields form-fields-inp" type="text" name="bezeichnung" id="bezeichnung">
             <div class='form-fields'>
                 <input class='form-button' type='submit' name='create' value="Erstellen">
             </div>
@@ -27,7 +27,7 @@
         <fieldset class="form-fieldset">
             <legend>Kategorie bearbeiten</legend>
             <label class="form-fields" for="kategorie">Kategorie wählen</label>
-            <select class="form-fields" name='kid' id="kategorie">
+            <select class="form-fields form-fields-inp" name='kid' id="kategorie">
                 <?php
                     $num = mysqli_num_rows($kategorienRes);
 
@@ -37,7 +37,7 @@
                 ?>
             </select>
             <label class="form-fields" for="bezeichnung">Bezeichnung anpassen</label>
-            <input class="form-fields" type="text" name="bezeichnung" id="bezeichnung" onload="test()">
+            <input class="form-fields form-fields-inp" type="text" name="bezeichnung" id="bezeichnung" onload="test()">
             <div class="form-fields" >
                 <input class='form-button' type='submit' name='edit' value="Bearbeiten">
             </div>
@@ -48,7 +48,7 @@
         <fieldset class="form-fieldset">
             <legend>Kategorie löschen</legend>
             <label class="form-fields" for="kategorie">Kategorie wählen</label>
-            <select class="form-fields" name='kid' id="kategorie">
+            <select class="form-fields form-fields-inp" name='kid' id="kategorie">
                 <?php
                 $kategorienRes->data_seek(0);
                 $num = mysqli_num_rows($kategorienRes);

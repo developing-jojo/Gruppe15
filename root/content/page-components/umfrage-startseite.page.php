@@ -8,7 +8,7 @@
             // Lädt eine separate Datei, um eine Verbindung mit der DB herzustellen
             require $baseUrl.'/content/dbconnect.php';
 
-            // Ein MySql Query-Aufruf zum Selektieren und Filtern der benötigten Daten
+            // Ein MySql Query-Aufruf zum Selektieren und Filtern der benötigten Umfrage- und Kategorie-Daten
             $res = mysqli_query($con, "SELECT umfragen.u_id, umfragen.name, kategorien.bezeichnung
                                         FROM `umfragen`
                                         LEFT JOIN `kategorien`

@@ -18,10 +18,10 @@ $umfragenRes = mysqli_query($con, $uSql);
         <fieldset class="form-fieldset">
             <legend>Antwort erstellen</legend>
             <label class="form-fields" for="inhalt">Inhalt</label>
-            <input class="form-fields" type="text" name="inhalt" id="inhalt">
+            <input class="form-fields form-fields-inp" type="text" name="inhalt" id="inhalt">
 
             <label class="form-fields" for="umfrage">Umfrage</label>
-            <select class="form-fields" name='uid' id="umfrage">
+            <select class="form-fields form-fields-inp" name='uid' id="umfrage">
                 <?php
                 while($umfrage = mysqli_fetch_array($umfragenRes)) {
                     echo "<option value='{$umfrage['u_id']}'>{$umfrage['name']}</option>";
@@ -34,23 +34,12 @@ $umfragenRes = mysqli_query($con, $uSql);
         </fieldset>
     </form>
 
-    <form class="formular" action="/backend/antwort-post.php" method="post">
+    <form class="formular" action="/backend/antwort-bearbeiten.page.php" method="get">
         <fieldset class="form-fieldset">
-            <legend>Antwort bearbeiten</legend>
-            <label class="form-fields" for="antwort">Antwort wählen</label>
-            <select class="form-fields" name='aid' id="antwort">
-                <?php
-                while($antwort = mysqli_fetch_array($antwortenRes)) {
-                    echo "<option value='{$antwort['a_id']}'>{$antwort['inhalt']}</option>";
-                }
-                ?>
-            </select>
-
-            <label class="form-fields" for="inhalt">Inhalt anpassen</label>
-            <input class="form-fields" type="text" name="inhalt" id="inhalt">
+            <legend>Antworten bearbeiten</legend>
 
             <label class="form-fields" for="umfrage">Umfrage wählen</label>
-            <select class="form-fields" name='uid' id="umfrage">
+            <select class="form-fields form-fields-inp" name='uid' id="umfrage">
                 <?php
                 $umfragenRes -> data_seek(0);
 
@@ -60,7 +49,7 @@ $umfragenRes = mysqli_query($con, $uSql);
                 ?>
             </select>
             <div class="form-fields" >
-                <input class='form-button' type='submit' name='edit' value="Bearbeiten">
+                <input class='form-button' type='submit' value="Bearbeiten">
             </div>
         </fieldset>
     </form>
@@ -69,7 +58,7 @@ $umfragenRes = mysqli_query($con, $uSql);
         <fieldset class="form-fieldset">
             <legend>Antwort löschen</legend>
             <label class="form-fields" for="antwort">Antwort wählen</label>
-            <select class="form-fields" name='aid' id="antwort">
+            <select class="form-fields form-fields-inp" name='aid' id="antwort">
                 <?php
                 $antwortenRes -> data_seek(0);
 

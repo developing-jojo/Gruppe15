@@ -18,13 +18,13 @@ $umfragenRes = mysqli_query($con, $uSql);
         <fieldset class="form-fieldset">
             <legend>Umfrage erstellen</legend>
             <label class="form-fields" for="name">Name</label>
-            <input class="form-fields" type="text" name="name" id="name">
+            <input class="form-fields form-fields-inp" type="text" name="name" id="name">
 
             <label class="form-fields" for="beschreibung">Beschreibung</label>
-            <textarea class="form-fields" type="text" name="beschreibung" id="beschreibung"></textarea>
+            <textarea class="form-fields form-fields-inp" type="text" name="beschreibung" id="beschreibung"></textarea>
 
             <label class="form-fields" for="kategorie">Kategorie</label>
-            <select class="form-fields" name='kid' id="kategorie">
+            <select class="form-fields form-fields-inp" name='kid' id="kategorie">
                 <?php
                 $num = mysqli_num_rows($kategorienRes);
 
@@ -33,17 +33,25 @@ $umfragenRes = mysqli_query($con, $uSql);
                 }
                 ?>
             </select>
+
+            <div class="date-picker">
+                <label class="form-fields" for="start">Startdatum</label>
+                <input class="form-fields form-fields-inp" type="date" name="start" id="start" value="<?php print(date("Y-m-d")); ?>">
+
+                <label class="form-fields" for="end">Enddatum</label>
+                <input class="form-fields form-fields-inp" type="date" name="end" id="end">
+            </div>
             <div class='form-fields'>
                 <input class='form-button' type='submit' name='create' value="Erstellen">
             </div>
         </fieldset>
     </form>
 
-    <form class="formular" action="/backend/umfrage-post.php" method="post">
+    <form class="formular" action="/backend/umfrage-bearbeiten.page.php" method="get">
         <fieldset class="form-fieldset">
             <legend>Umfrage bearbeiten</legend>
             <label class="form-fields" for="umfrage">Umfrage wählen</label>
-            <select class="form-fields" name='uid' id="umfrage">
+            <select class="form-fields form-fields-inp" name='uid' id="umfrage">
                 <?php
                 $num = mysqli_num_rows($umfragenRes);
 
@@ -52,26 +60,8 @@ $umfragenRes = mysqli_query($con, $uSql);
                 }
                 ?>
             </select>
-
-            <label class="form-fields" for="name">Namen anpassen</label>
-            <input class="form-fields" type="text" name="name" id="name">
-
-            <label class="form-fields" for="beschreibung">Beschreibung anpassen</label>
-            <textarea class="form-fields" type="text" name="beschreibung" id="beschreibung"></textarea>
-
-            <label class="form-fields" for="kategorie">Kategorie wählen</label>
-            <select class="form-fields" name='kid' id="kategorie">
-            <?php
-            $kategorienRes -> data_seek(0);
-            $num = mysqli_num_rows($kategorienRes);
-
-            while($kategorie = mysqli_fetch_array($kategorienRes)) {
-                echo "<option value='{$kategorie['k_id']}'>{$kategorie['bezeichnung']}</option>";
-            }
-            ?>
-            </select>
             <div class="form-fields" >
-                <input class='form-button' type='submit' name='edit' value="Bearbeiten">
+                <input class='form-button' type='submit' value="Bearbeiten">
             </div>
         </fieldset>
     </form>
@@ -80,7 +70,7 @@ $umfragenRes = mysqli_query($con, $uSql);
         <fieldset class="form-fieldset">
             <legend>Umfrage löschen</legend>
             <label class="form-fields" for="umfrage">Umfrage wählen</label>
-            <select class="form-fields" name='uid' id="umfrage">
+            <select class="form-fields form-fields-inp" name='uid' id="umfrage">
                 <?php
                 $umfragenRes -> data_seek(0);
                 $num = mysqli_num_rows($umfragenRes);
