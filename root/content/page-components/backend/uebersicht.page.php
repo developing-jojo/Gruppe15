@@ -12,7 +12,7 @@
             <div class="card">
                 <img src="../../img/antwort.png" alt="Antwort Formular">
                 <h1 class="card-text">Antwort Formular</h1>
-                <p class="card-text">Antwortmöglichkeiten für Umfragen erstellen.</p>
+                <p class="card-text">Antworten für Umfragen erstellen, anpassen und entfernen.</p>
             </div>
         </a>
     </div>
@@ -22,7 +22,7 @@
             <div class="card">
                 <img src="../../img/kategorie.png" alt="Kategorie Formular">
                 <h1 class="card-text">Kategorie Formular</h1>
-                <p class="card-text">Umfrage-Kategorien erstellen, anpassen und entfernen.</p>
+                <p class="card-text">Kategorien für Umfragen erstellen, anpassen und entfernen.</p>
             </div>
         </a>
 
