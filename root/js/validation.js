@@ -2,9 +2,15 @@ document.addEventListener('DOMContentLoaded', function(event) {
     // Speichert das erste Formular-Element zwischen (wenn er eins findet)
     const form  = document.getElementsByTagName('form')[0];
 
-    // Setzt das Start- und End-Datum, wenn die Seite geladen wurde
-    setStartDate(form.start);
-    setEndDate(form.start.value, form.end);
+    // Holt sich die GET Parameter aus der URL
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.get('mode') !== 'edit') {
+        // Setzt das Start- und End-Datum, wenn die Seite geladen wurde
+        setStartDate(form.start);
+        setEndDate(form.start.value, form.end);
+    }
 
     // Ändert das End-Datum entsprechend des geänderten Start-Datums
     changedDate(form);

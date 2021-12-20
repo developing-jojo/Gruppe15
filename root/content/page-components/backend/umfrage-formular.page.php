@@ -51,6 +51,9 @@ $umfragenRes = mysqli_query($con, $uSql);
     <form class="formular" action="/backend/umfrage-bearbeiten.page.php" method="get">
         <fieldset class="form-fieldset">
             <legend>Umfrage bearbeiten</legend>
+
+            <input type="hidden" name="mode" value="edit">
+
             <label class="form-fields" for="umfrage">Umfrage wählen</label>
             <select class="form-fields form-fields-inp" name='uid' id="umfrage">
                 <?php

@@ -38,7 +38,7 @@
                 echo '<div class="table-wrapper antworten-uebersicht-table">';
                 echo '<table class="table m-top-30">';
 
-                echo "<th>Umfragename</th>";
+                echo "<th>Antworten</th>";
                 echo "<th>Abgegebene Stimmen</th>";
 
                 $aRes -> data_seek(0);
