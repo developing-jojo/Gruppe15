@@ -1,21 +1,26 @@
 document.addEventListener('DOMContentLoaded', function(event) {
+    // Speichert das erste Formular-Element zwischen (wenn er eins findet)
     const form  = document.getElementsByTagName('form')[0];
 
+    // Setzt das Start- und End-Datum, wenn die Seite geladen wurde
     setStartDate(form.start);
     setEndDate(form.start.value, form.end);
 
+    // Ändert das End-Datum entsprechend des geänderten Start-Datums
     changedDate(form);
 
+    // Validiert die Formular-Eingaben, wenn ein Formular abgeschickt wird
     validate(form, form.name, form.beschreibung, form.start, form.end, form.bezeichnung, form.inhalt);
 })
 
 function validate(form, name, beschreibung, startdatum, enddatum, bezeichnung, inhalt) {
+    // Wenn ein Formular abgeschickt wird, wird bei allen Input-Feldern (die existieren) die Eingabe überprüft
+        // Bei einem Fehler wird eine entsprechende Meldung an den Nutzer gegeben und der Submit wird abgebrochen
     form.addEventListener('submit', function (event) {
 
         if (!!name) {
             if(!nameIsValid(name)) {
-                console.log("hgkfdj")
-                alert("Der Titel muss 1-250 Zeichen lang sein!");
+                alert("Der Titel muss mindestens 1 Zeichen lang sein!");
                 event.preventDefault()
             }
         }
@@ -29,50 +34,52 @@ function validate(form, name, beschreibung, startdatum, enddatum, bezeichnung, i
 
         if (!!startdatum && !!enddatum) {
             if(!datumIsValid(startdatum, enddatum)) {
+                alert("Das Enddatum darf nicht vor dem Startdatum liegen!");
                 event.preventDefault()
             }
         }
 
         if (!!bezeichnung) {
             if(!bezeichnungIsValid(bezeichnung)) {
-                alert("Die Bezeichnung muss 1-32 Zeichen enthalten!");
+                alert("Die Kategorie-Bezeichnung muss 1-32 Zeichen enthalten!");
                 event.preventDefault()
             }
         }
 
         if (!!inhalt) {
             if(!inhaltIsValid(inhalt)) {
-                alert("Der Inhalt muss 1-250 Zeichen enthalten!");
+                alert("Der Inhalt der Antwort muss 1-256 Zeichen enthalten!");
                 event.preventDefault()
             }
         }
     });
 }
 
+// Überprüft, ob der Name größer als 0 ist
 function nameIsValid(name) {
     let isValid = true;
     const length = name.value.length;
 
-    if(length < 1 || length > 250) {
+    if(length < 1) {
         isValid = false;
     }
 
-    console.log("name: ", isValid);
     return isValid;
 }
 
+// Überprüft, ob die Beschreibung größer als 0 und kleiner gleich 500 ist
 function beschreibungIsValid(beschreibung) {
     let isValid = true;
     const length = beschreibung.value.length;
 
-    if(length < 1 || length > 500) {
+    if(length < 1 || length >= 500) {
         isValid = false;
     }
 
-    console.log("bes: ", isValid);
     return isValid;
 }
 
+// Überprüft, ob das Startdatum vor dem Enddatum liegt
 function datumIsValid(startdatum, enddatum) {
     let isValid = true;
     const start = toDate(startdatum.value).getTime()
@@ -80,14 +87,13 @@ function datumIsValid(startdatum, enddatum) {
 
     if (end <= start) {
         isValid = false;
-        alert("Das Enddatum darf nicht vor dem Startdatum liegen!");
     }
 
-    console.log("date: ", isValid);
     return isValid;
 
 }
 
+// Überprüft, ob die Bezeichnung größer 0 und kleiner gleich 32 ist
 function bezeichnungIsValid(bezeichnung) {
     let isValid = true;
     const length = bezeichnung.value.length;
@@ -96,10 +102,10 @@ function bezeichnungIsValid(bezeichnung) {
         isValid = false;
     }
 
-    console.log("bez: ", isValid);
     return isValid;
 }
 
+// Überprüft, ob der Inhalt größer 0 und kleiner gleich 250 ist
 function inhaltIsValid(inhalt) {
     let isValid = true;
     const length = inhalt.value.length;
@@ -108,10 +114,10 @@ function inhaltIsValid(inhalt) {
         isValid = false;
     }
 
-    console.log("inh: ", isValid);
     return isValid;
 }
 
+// Setzt das Startdatum einer Umfrage auf "Heute +1"
 function setStartDate(date) {
     const today = toDate(date.defaultValue);
     today.setDate(today.getDate() + 1);
@@ -120,6 +126,7 @@ function setStartDate(date) {
     return toSqlDate(today);
 }
 
+// Setzt das Enddatum einer Umfrage auf "Startdatum +30"
 function setEndDate(startDate, endDate) {
     const end = toDate(startDate);
     end.setDate(end.getDate() + 30);
@@ -127,11 +134,13 @@ function setEndDate(startDate, endDate) {
     endDate.value = toSqlDate(end);
 }
 
+// Wandelt den Datum-String in ein Date-Objekt um
 function toDate(dateStr) {
     var parts = dateStr.split("-")
     return new Date(parts[0], parts[1]-1, parts[2])
 }
 
+// Wandelt ein Date-Objekt in deinen String um, der dem SQL-Date-Format "Y-m-dY entspricht
 function toSqlDate(date) {
     const year = String(date.getFullYear());
     let month = String(date.getMonth()+1);
@@ -149,6 +158,7 @@ function toSqlDate(date) {
     return year + "-" + month + "-" + day;
 }
 
+// Passt das Enddatum automatisch an (T +30), wenn das Startdatum verändert wird
 function changedDate(form) {
     form.start.addEventListener('change', function (event) {
         setEndDate(event.target.value, form.end)

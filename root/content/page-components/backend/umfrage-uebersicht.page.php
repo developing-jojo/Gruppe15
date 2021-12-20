@@ -67,7 +67,8 @@
                         // angezeigt werden kann
                     if (isset($dsatz["stimmen"])) {
 
-                        // Überprüft, ob die ausgewählte Reihe dem höchsten oder niedrigsten Stimmen-Wert entspricht
+                        // Überprüft, ob die ausgewählte Reihe dem höchsten oder niedrigsten Stimmen-Wert entspricht und
+                            // erweitert gegebenenfalls den Inhalt des Feldes
                         if($dsatz["u_id"] === $highestRow) {
                             echo "<td>" . $dsatz["stimmen"] . " (höchster Wert)</td>";
                         } elseif($dsatz["u_id"] === $lowestRow) {
@@ -81,10 +82,8 @@
 
                     echo "</tr>";
                 }
-
-
             } else {
-                echo "<h3>Keine aktiven Umfragen vorhanden.</h3>";
+                echo "<h3>Keine Umfragen vorhanden.</h3>";
             }
 
 
@@ -101,7 +100,7 @@
                 $start = date_format($start, "Ymd");
                 $end = date_format($end, "Ymd");
 
-                if ($currentDate >= $start && $currentDate <= $end ) {
+                if ($currentDate >= $start && $currentDate <= $end) {
                     echo "<td><a class='active' href='/backend/umfrage-details.page.php?uid={$dsatz["u_id"]}'>"
                         . $dsatz["name"] . "</a></td>";
                 } else {

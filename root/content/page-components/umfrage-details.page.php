@@ -11,11 +11,11 @@
                     // Lädt eine separate Datei, um eine Verbindung mit der DB herzustellen
                     require $baseUrl.'/content/dbconnect.php';
 
-                    //Lädt die Umfrage, bei der die ID mit der ID aus der URL übereinstimmt
+                    // Lädt die Umfrage, bei der die ID mit der ID aus der URL übereinstimmt
                     $uRes = mysqli_query($con, "SELECT * 
                                                    FROM `umfragen`
                                                    WHERE umfragen.u_id = $uid");
-                    //Lädt die Antworten, bei der die Fremdschlüssel mit der ID aus der URL übereinstimmen
+                    // Lädt die Antworten, bei der die Umfrage-ID (Fremdschlüssel) mit der ID aus der URL übereinstimmt
                     $aRes = mysqli_query($con, "SELECT * 
                                                    FROM `antworten`
                                                    WHERE antworten.umfrage_id = $uid");

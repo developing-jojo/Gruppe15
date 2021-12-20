@@ -1,8 +1,5 @@
 <footer class="footer">
-    <span><?php echo date("Y"); ?> erstellt von
-        Darlyn Becker,
-        Alina Heinowski,
-        Anna-Mieke Kuper und
-        Frank Rommel
-    </span>
+    <div>
+        <p style="line-height: 50px">Erstellt von Darlyn Becker, Alina Heinowski, Anna-Mieke Kuper und Frank Rommel</p>
+    </div>
 </footer>

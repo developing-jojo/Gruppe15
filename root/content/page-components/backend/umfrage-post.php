@@ -5,7 +5,7 @@
     // Lädt eine separate Datei, um eine Verbindung mit der DB herzustellen
     require $baseUrl . '/content/dbconnect.php';
 
-    // Wenn Kategorie erstellt
+    // Wenn Umfrage erstellt
     if (isset($_POST["create"])) {
 
         // Holt sich die übermittelten Attribute aus dem POST-Request
@@ -15,11 +15,11 @@
         $start = $_POST["start"];
         $end = $_POST["end"];
 
+        // SQL-Statement zum Erstellen der neuen Umfrage
         $sql = "INSERT INTO umfragen (name, beschreibung, kategorie_id, startdatum, enddatum) 
                 VALUE ('$name', '$beschreibung', '$kid', '$start', '$end')";
 
-        // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-        // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+        // Wenn Query (nicht) erfolgreich, kurze Info und Weiterleitung auf Übersicht
         if (mysqli_query($con, $sql)) {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Umfrage erfolgreich erstellt.";
@@ -38,7 +38,7 @@
         mysqli_close($con);
     }
 
-    // Wenn Kategorie bearbeitet
+    // Wenn Umfrage bearbeitet
     if (isset($_POST["edit"])) {
 
         // Holt sich die übermittelten Attribute aus dem POST-Request
@@ -49,12 +49,11 @@
         $uid = $_POST["uid"];
         $kid = $_POST["kid"];
 
-        // Der SQL-Code zum Bearbeiten einer Kategorie in der DB
+        // Der SQL-Code zum Bearbeiten einer Umfrage in der DB
         $sql = "UPDATE umfragen SET name = '$name', beschreibung = '$beschreibung', kategorie_id = '$kid', 
                     startdatum = '$start', enddatum = '$end' WHERE u_id = {$uid};";
 
-        // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-        // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+        // Wenn Query (nicht) erfolgreich, kurze Info und Weiterleitung auf Übersicht
         if (mysqli_query($con, $sql)) {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Umfrage erfolgreich bearbeitet.";
@@ -71,18 +70,17 @@
 
     }
 
-    //Wenn Kategorie gelöscht
+    //Wenn Umfrage gelöscht
     if (isset($_POST["delete"])) {
 
         // Holt sich die übermittelten Attribute aus dem POST-Request
         $uid = $_POST["uid"];
 
 
-        // Der SQL-Code zum Bearbeiten einer Kategorie in der DB
+        // Der SQL-Code zum Löschen einer Umfrage in der DB
         $sql = "DELETE FROM umfragen WHERE u_id = {$uid};";
 
-        // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-        // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+        // Wenn Query (nicht) erfolgreich, kurze Info und Weiterleitung auf Übersicht
         if (mysqli_query($con, $sql)) {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Umfrage erfolgreich entfernt.";

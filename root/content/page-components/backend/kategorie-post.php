@@ -14,8 +14,7 @@
         // Der SQL-Code zum Erstellen einer Kategorie in der DB
         $sql = "INSERT INTO kategorien (bezeichnung) VALUE ('$bezeichnung')";
 
-        // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-        // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+        // Wenn Query (nicht) erfolgreich, kurze Info und Weiterleitung auf Übersicht
         if (mysqli_query($con, $sql)) {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Kategorie erfolgreich erstellt.";
@@ -29,9 +28,6 @@
             echo "<div class='loader'></div>";
             header( "refresh:1.5;url=/backend/uebersicht.page.php" );
         }
-
-        // Schließt die offene Datenbankverbindung wieder
-        mysqli_close($con);
     }
 
     // Wenn Kategorie bearbeitet
@@ -44,8 +40,7 @@
         // Der SQL-Code zum Bearbeiten einer Kategorie in der DB
         $sql = "UPDATE kategorien SET bezeichnung = '$bezeichnung' WHERE k_id = {$kid};";
 
-        // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-        // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+        // Wenn Query (nicht) erfolgreich, kurze Info und Weiterleitung auf Übersicht
         if (mysqli_query($con, $sql)) {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Kategorie erfolgreich bearbeitet.";
@@ -59,10 +54,9 @@
             echo "<div class='loader'></div>";
             header( "refresh:1.5;url=/backend/uebersicht.page.php" );
         }
-
     }
 
-    //Wenn Kategorie gelöscht
+    // Wenn Kategorie gelöscht
     if (isset($_POST["delete"])) {
 
         // Holt sich die übermittelten Attribute aus dem POST-Request
@@ -71,8 +65,7 @@
         // Der SQL-Code zum Bearbeiten einer Kategorie in der DB
         $sql = "DELETE FROM kategorien WHERE k_id = {$kid};";
 
-        // Wenn SQL-Query erfolgreich, dann Erfolg und Weiterleitung auf Ergebnisse
-        // Sonst Misserfolg und Weiterleitung zurück auf Übersicht
+        // Wenn Query (nicht) erfolgreich, kurze Info und Weiterleitung auf Übersicht
         if (mysqli_query($con, $sql)) {
             echo "<h3 class='gesendet-nachricht'>";
             echo "Kategorie erfolgreich entfernt.";

@@ -2,6 +2,7 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8">
+        <meta name="author" content="Darlyn Becker, Alina Heinowski, Anna-Mieke Kuper und Frank Rommel">
         <title>Umfrage Tool</title>
 
         <!-- Verlinkungen zur Google-API für die Nutzung einer Schriftart und eines Icon-Fonts -->
@@ -25,6 +26,7 @@
             }
         ?>
 
+        <!-- Die CSS und JavaScript Datei werden mit der zusammengebauten URL und dem relativen Pfad geladen -->
         <link rel="stylesheet" href="<?php echo $protocol . $baseUrl . '/css/main.css'; ?>">
         <script src="<?php echo $protocol . $baseUrl . '/js/validation.js'; ?>"></script>
     </head>

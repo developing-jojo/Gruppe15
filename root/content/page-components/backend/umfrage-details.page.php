@@ -44,7 +44,6 @@
                 $aRes -> data_seek(0);
 
                 // Die Schleife durchläuft das MySql-Query-Ergebnis und baut daraus die entsprechenden Tabellen-Reihen
-                // Das Class-Attribut ist ein String, der als Klassen-Name dem Umfrage-Namen angehängt wird
                 while ($dsatz = mysqli_fetch_assoc($aRes)) {
                     $stimmenProzent = 0;
                     if ($stimmenGesamt["stimmen"] > 0) {

@@ -5,7 +5,7 @@
     // Lädt eine separate Datei, um eine Verbindung mit der DB herzustellen
     require $baseUrl . '/content/dbconnect.php';
 
-    //Sql-Statement um die Kategorien zu laden
+    // Sql-Statement um die Kategorien zu laden
     $sql = "SELECT * FROM kategorien";
     $kategorienRes = mysqli_query($con, $sql);
 
@@ -31,6 +31,7 @@
                 <?php
                     $num = mysqli_num_rows($kategorienRes);
 
+                    // Schleife lädt alle verfügbaren Kategorien als Option in das Select
                     while($kategorie = mysqli_fetch_array($kategorienRes)) {
                         echo "<option value='{$kategorie['k_id']}' onselect=''>{$kategorie['bezeichnung']}</option>";
                     }
@@ -50,12 +51,14 @@
             <label class="form-fields" for="kategorie">Kategorie wählen</label>
             <select class="form-fields form-fields-inp" name='kid' id="kategorie">
                 <?php
-                $kategorienRes->data_seek(0);
-                $num = mysqli_num_rows($kategorienRes);
+                    // data_seek() setzt den Zähler der Result-Liste auf 0 zurück
+                    $kategorienRes->data_seek(0);
+                    $num = mysqli_num_rows($kategorienRes);
 
-                while($kategorie = mysqli_fetch_assoc($kategorienRes)) {
-                    echo "<option value='{$kategorie['k_id']}'>{$kategorie['bezeichnung']}</option>";
-                }
+                    // Schleife lädt alle verfügbaren Kategorien als Option in das Select
+                    while($kategorie = mysqli_fetch_assoc($kategorienRes)) {
+                        echo "<option value='{$kategorie['k_id']}'>{$kategorie['bezeichnung']}</option>";
+                    }
                 ?>
             </select>
             <div class="form-fields" >

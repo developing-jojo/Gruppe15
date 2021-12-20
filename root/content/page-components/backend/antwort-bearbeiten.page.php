@@ -5,7 +5,7 @@ $baseUrl = $_SERVER['DOCUMENT_ROOT'];
 // Lädt eine separate Datei, um eine Verbindung mit der DB herzustellen
 require $baseUrl . '/content/dbconnect.php';
 
-//Sql-Statements um die Kategorien und Umfragen zu laden
+//Sql-Statements um die Antworten und Umfragen zu laden
 $aSql = "SELECT * FROM antworten WHERE antworten.umfrage_id = " . $_GET["uid"];
 $uSql = "SELECT * FROM umfragen WHERE umfragen.u_id = " . $_GET["uid"];
 $antwortenRes = mysqli_query($con, $aSql);
@@ -19,8 +19,10 @@ $antwortenRes = mysqli_query($con, $aSql);
             <legend>Antworten bearbeiten</legend>
 
             <?php
+                // Verstecktes Input-Feld zum Übermitteln der aktuellen Umfrage-Id
                 echo "<input hidden name='uid' value='{$_GET["uid"]}'>";
 
+                // Schleife lädt alle Antwort-Felder der aktuellen Umfrage und generiert die Inputfeld-Namen/-Ids dynamisch
                 $count = 1;
                 while($antwort = mysqli_fetch_assoc($antwortenRes)) {
                     echo "<label class='form-fields' for='inhalt-{$antwort["a_id"]}'>Antwort " . $count . " anpassen </label>";

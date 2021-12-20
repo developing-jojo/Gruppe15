@@ -36,6 +36,7 @@ $umfragenRes = mysqli_query($con, $uSql);
 
             <div class="date-picker">
                 <label class="form-fields" for="start">Startdatum</label>
+                <!-- Das aktuelle Datum im Y-m-d Format wird als Start-Wert für weitere Berechnungen gesetzt -->
                 <input class="form-fields form-fields-inp" type="date" name="start" id="start" value="<?php print(date("Y-m-d")); ?>">
 
                 <label class="form-fields" for="end">Enddatum</label>

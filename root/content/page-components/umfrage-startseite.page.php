@@ -9,6 +9,7 @@
             require $baseUrl.'/content/dbconnect.php';
 
             // Ein MySql Query-Aufruf zum Selektieren und Filtern der benötigten Umfrage- und Kategorie-Daten
+                // Filtert nach der Bedingung, dass "Heute" zwischen Start- und End-Datum liegt
             $res = mysqli_query($con, "SELECT umfragen.u_id, umfragen.name, kategorien.bezeichnung
                                         FROM `umfragen`
                                         LEFT JOIN `kategorien`

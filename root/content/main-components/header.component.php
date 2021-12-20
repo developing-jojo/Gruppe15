@@ -1,7 +1,9 @@
 <div>
     <header class="header">
         <div class="home-button">
-            <a class="home-button-link" href="/"><span class="material-icons home-button-icon">home</span></a>
+            <a class="home-button-link" href="/">
+                <p class="material-icons home-button-icon">home</p>
+            </a>
         </div>
 
         <div class="navbar">

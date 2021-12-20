@@ -1,4 +1,6 @@
-# Config um alle Requests an die index.php weiterzuleiten
+# Config um alle eingehenden Requests an die index.php weiterzuleiten
+    # So kann die jeweilige PHP Datei dynamisch als Inhalt in die Index geladen werden
+    # Das reduziert doppelten Code und verhindert unnötiges Neuladen wiederkehrender Inhalte, wie den Header/Footer
 RewriteEngine On
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
